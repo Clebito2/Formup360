@@ -99,14 +99,23 @@
             color: var(--azul-petroleo);
         }
 
-        .input-field, .textarea-field {
+        .input-field, .textarea-field, .select-field {
             background-color: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--branco);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        /* FIX: Style for select options */
+        .select-field option {
+             background-color: var(--azul-petroleo);
+             color: var(--branco);
         }
 
-        .input-field:focus, .textarea-field:focus {
+        .input-field:focus, .textarea-field:focus, .select-field:focus {
             outline: none;
             border-color: var(--verde-vibrante);
             box-shadow: 0 0 15px rgba(0, 232, 0, 0.3);
@@ -137,15 +146,13 @@
         <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png" alt="Logo Live" class="h-12">
     </header>
 
-    <!-- O formulário agora envolve todo o container principal -->
-    <form name="integracao-up360" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="w-full">
-        <!-- Campo oculto para o Netlify saber o nome do formulário -->
+    <!-- The form tag now has an action attribute for Netlify, but submission is handled by JS -->
+    <form name="integracao-up360" method="POST" action="/obrigado/" data-netlify="true" netlify-honeypot="bot-field" class="w-full">
         <input type="hidden" name="form-name" value="integracao-up360" />
         <p class="hidden">
             <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
         </p>
 
-        <!-- Container principal com borda mais grossa -->
         <main id="form-container" class="w-full max-w-3xl mx-auto bg-black bg-opacity-20 backdrop-blur-lg p-8 md:p-12 rounded-2xl shadow-2xl border-4 border-white/10">
             <!-- Steps will be injected here by JavaScript -->
         </main>
@@ -338,7 +345,7 @@
                     inputHtml = `<textarea id="${step.id}" name="${step.name}" rows="5" class="textarea-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}"></textarea>`;
                 } else if (step.type === 'select') {
                     const optionsHtml = step.options.map(o => `<option value="${o}">${o}</option>`).join('');
-                    inputHtml = `<select id="${step.id}" name="${step.name}" class="input-field w-full p-4 rounded-lg mt-2">${optionsHtml}</select>`;
+                    inputHtml = `<select id="${step.id}" name="${step.name}" class="select-field w-full p-4 rounded-lg mt-2">${optionsHtml}</select>`;
                 } else {
                     inputHtml = `<input type="${step.type}" id="${step.id}" name="${step.name}" class="input-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}">`;
                 }
@@ -392,7 +399,6 @@
 
             if (step.id === 'preco_condicoes') {
                 submissionData.services.push({ ...currentServiceData });
-                currentServiceData = {};
             }
 
             if (currentStep < formSteps.length - 1) {
@@ -409,32 +415,25 @@
         }
 
         function addAnotherService() {
+            // FIX: Clear the current service data before starting a new one
+            currentServiceData = {};
             currentStep = formSteps.findIndex(s => s.id === 'servico_nome');
             renderStep();
         }
 
         function finishForm() {
-            if (Object.keys(currentServiceData).length > 0) {
+             if (Object.keys(currentServiceData).length > 0) {
+                // This case happens if the user clicks "Finalizar" without adding another service
                 submissionData.services.push({ ...currentServiceData });
                 currentServiceData = {};
-            }
-            const lastServiceQuestionIndex = formSteps.findIndex(s => s.id === 'apoio_materiais');
-             for (let i = lastServiceQuestionIndex; i >= 0; i--) {
-                const step = formSteps[i];
-                if (step.id && !step.id.startsWith('servico_')) {
-                    saveData();
-                }
             }
             currentStep = formSteps.findIndex(s => s.type === 'final');
             renderStep();
         }
         
-        function prepareAndSubmitForm() {
-            finishForm(); 
-            const dataInput = document.createElement('input');
-            dataInput.type = 'hidden';
-            dataInput.name = 'submission_data';
-
+        async function prepareAndSubmitForm() {
+            const dataToSubmit = new FormData(formElement);
+            
             let formattedContent = `Respostas do Formulário de Integração - Up360\n`;
             formattedContent += `==================================================\n\n`;
             formattedContent += `Descrição Geral da Up360: ${submissionData.descricao_geral_up360 || 'N/A'}\n\n`;
@@ -460,9 +459,29 @@
             formattedContent += `---------- MATERIAIS DE APOIO ----------\n`;
             formattedContent += `Materiais existentes: ${submissionData.apoio_materiais || 'N/A'}\n`;
             
-            dataInput.value = formattedContent;
-            formElement.appendChild(dataInput);
-            formElement.submit();
+            dataToSubmit.append('submission_data', formattedContent);
+
+            try {
+                const response = await fetch(formElement.getAttribute('action'), {
+                    method: 'POST',
+                    headers: { "Accept": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(dataToSubmit).toString(),
+                });
+
+                if (response.ok) {
+                     formContainer.innerHTML = `
+                        <div class="text-center fade-in">
+                            <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">Enviado com Sucesso!</h2>
+                            <p class="text-lg text-gray-300">Obrigado, Tom. Recebemos suas respostas e entraremos em contato em breve.</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('Houve um erro ao enviar o formulário. Por favor, tente novamente.');
+            }
         }
 
         renderStep();
