@@ -412,6 +412,13 @@
         async function submitDataToGoogleScript() {
             const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7nM8ybKURrgRPa9Ko1UzAzw0D-HySwBHcwR8iVrYy9nRyhh2UI146njeCX41o7d41sg/exec';
             
+            // --- CORREÇÃO FINAL ---
+            // Garante que o último serviço seja adicionado antes de enviar.
+            if (Object.keys(currentServiceData).length > 0) {
+                submissionData.services.push({ ...currentServiceData });
+                currentServiceData = {};
+            }
+
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
@@ -420,8 +427,6 @@
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify(submissionData),
-                    // O cabeçalho é importante, mas o 'mode: no-cors' era o problema.
-                    // Removendo-o e tratando a resposta corretamente é a solução.
                     headers: {
                         'Content-Type': 'text/plain;charset=utf-8',
                     },
