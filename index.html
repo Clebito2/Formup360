@@ -84,6 +84,11 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 232, 0, 0.2);
         }
+        
+        .btn-brand:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
 
         .btn-secondary {
             background-color: transparent;
@@ -109,7 +114,6 @@
             appearance: none;
         }
         
-        /* FIX: Style for select options */
         .select-field option {
              background-color: var(--azul-petroleo);
              color: var(--branco);
@@ -146,17 +150,9 @@
         <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png" alt="Logo Live" class="h-12">
     </header>
 
-    <!-- The form tag now has an action attribute for Netlify, but submission is handled by JS -->
-    <form name="integracao-up360" method="POST" action="/obrigado/" data-netlify="true" netlify-honeypot="bot-field" class="w-full">
-        <input type="hidden" name="form-name" value="integracao-up360" />
-        <p class="hidden">
-            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
-        </p>
-
-        <main id="form-container" class="w-full max-w-3xl mx-auto bg-black bg-opacity-20 backdrop-blur-lg p-8 md:p-12 rounded-2xl shadow-2xl border-4 border-white/10">
-            <!-- Steps will be injected here by JavaScript -->
-        </main>
-    </form>
+    <main id="form-container" class="w-full max-w-3xl mx-auto bg-black bg-opacity-20 backdrop-blur-lg p-8 md:p-12 rounded-2xl shadow-2xl border-4 border-white/10">
+        <!-- Steps will be injected here by JavaScript -->
+    </main>
     
     <footer class="absolute bottom-4 text-center w-full text-gray-500 text-sm">
         <p>desenvolvido por Cléber Donato.</p>
@@ -173,7 +169,6 @@
             // SEÇÃO 1
             {
                 id: 'descricao_geral_up360',
-                name: 'descricao_geral_up360',
                 question: "Para começar, poderia nos dar uma descrição geral da Up360, sua missão e o leque de serviços que vocês oferecem?",
                 placeholder: "Ex: A Up360 é especializada em... e oferecemos serviços como BPO Financeiro, Consultoria de RH...",
                 type: 'textarea'
@@ -181,35 +176,30 @@
             // SEÇÃO 2 - Início do loop de serviços
             {
                 id: 'servico_nome',
-                name: 'servico_nome',
                 question: "Vamos detalhar cada serviço. Qual o nome do primeiro serviço ou produto que vamos analisar?",
                 placeholder: "Ex: BPO Financeiro Essencial, Gestão de Folha de Pagamento, etc.",
                 type: 'text'
             },
             {
                 id: 'servico_descricao',
-                name: 'servico_descricao',
                 question: "O que exatamente este serviço inclui? Quais são as principais atividades e entregáveis para o cliente?",
                 type: 'textarea',
                 placeholder: "Descreva o escopo, as atividades, fases e o que o cliente recebe no final."
             },
             {
                 id: 'servico_beneficios',
-                name: 'servico_beneficios',
                 question: "Quais são os principais benefícios e transformações que um cliente obtém com este serviço?",
                 type: 'textarea',
                 placeholder: "Ex: Redução de X% em custos, aumento da eficiência, conformidade legal, etc."
             },
             {
                 id: 'servico_publico_alvo',
-                name: 'servico_publico_alvo',
                 question: "Para qual perfil de cliente este serviço é mais recomendado?",
                 type: 'textarea',
                 placeholder: "Considere nicho de mercado, porte da empresa (PME, Média, Grande), faturamento ideal, etc."
             },
             {
                 id: 'servico_prerequisitos',
-                name: 'servico_prerequisitos',
                 question: "O cliente precisa ter algum pré-requisito para que o serviço seja eficaz?",
                 type: 'textarea',
                 placeholder: "Ex: Sistema contábil específico, processos minimamente definidos, equipe dedicada, etc."
@@ -217,7 +207,6 @@
             // SEÇÃO 3
             {
                 id: 'classificacao_maturidade',
-                name: 'classificacao_maturidade',
                 question: "Em nossa escala de 1 a 5, qual o nível de maturidade ideal do cliente para se beneficiar mais deste serviço?",
                 helpText: "1: Inexistente/Informal, 2: Ações sem padrão, 3: Estruturado mas inconsistente, 4: Rotina clara, 5: Consolidado e autônomo.",
                 type: 'select',
@@ -225,7 +214,6 @@
             },
             {
                 id: 'classificacao_impacto',
-                name: 'classificacao_impacto',
                 question: "E na nossa escala de 0 a 10, qual o impacto negativo para um cliente que não possui este serviço?",
                 helpText: "0-3: Baixo, 4-6: Médio, 7-8: Alto, 9-10: Crítico (trava o crescimento ou gera prejuízo).",
                 type: 'select',
@@ -233,7 +221,6 @@
             },
             {
                 id: 'classificacao_gatilhos',
-                name: 'classificacao_gatilhos',
                 question: "Quais são os principais sintomas ou 'dores' de um cliente que nos levariam a sugerir este serviço?",
                 type: 'textarea',
                 placeholder: "Ex: 'Cliente reclama da burocracia do RH', 'equipe financeira sobrecarregada', 'não tem dados confiáveis', etc."
@@ -241,21 +228,18 @@
             // SEÇÃO 4
             {
                 id: 'preco_modelo',
-                name: 'preco_modelo',
                 question: "Qual o modelo de precificação para este serviço?",
                 type: 'text',
                 placeholder: "Ex: Mensalidade fixa, pacote de horas, % sobre faturamento, etc."
             },
             {
                 id: 'preco_faixa',
-                name: 'preco_faixa',
                 question: "Quais são os valores ou as faixas de preço típicas?",
                 type: 'text',
                 placeholder: "Ex: A partir de R$ X, Planos Bronze/Prata/Ouro, etc."
             },
             {
                 id: 'preco_condicoes',
-                name: 'preco_condicoes',
                 question: "Existem condições especiais ou observações sobre a precificação?",
                 type: 'textarea',
                 placeholder: "Ex: Taxa de setup, reajustes, descontos para clientes Live, etc."
@@ -268,14 +252,12 @@
             },
             {
                 id: 'sinergia_complemento',
-                name: 'sinergia_complemento',
                 question: "Como você vê os serviços da Up360 atuando como 'ferramentas' ou 'continuação' de nossas consultorias?",
                 type: 'textarea',
                 placeholder: "Em que momento do nosso processo (diagnóstico, planejamento, execução) faria mais sentido oferecer cada serviço?"
             },
             {
                 id: 'sinergia_cross_sell',
-                name: 'sinergia_cross_sell',
                 question: "Poderia nos dar exemplos de cenários para venda cruzada?",
                 type: 'textarea',
                 placeholder: "Ex: 'Quando um cliente da Live atinge o marco X, o serviço Y da Up360 se torna o próximo passo lógico...'"
@@ -283,7 +265,6 @@
             // SEÇÃO 6
             {
                 id: 'apoio_materiais',
-                name: 'apoio_materiais',
                 question: "A Up360 possui materiais de apoio sobre os serviços que podemos usar?",
                 type: 'textarea',
                 placeholder: "Ex: Apresentações comerciais, PDFs explicativos, e-books, cases de sucesso, etc."
@@ -302,7 +283,6 @@
         ];
 
         let currentStep = 0;
-        const formElement = document.querySelector('form[name="integracao-up360"]');
         const formContainer = document.getElementById('form-container');
         
         let submissionData = { services: [] };
@@ -327,7 +307,7 @@
                      <div class="text-center">
                         <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">${step.title}</h2>
                         <p class="text-lg text-gray-300 mb-8">${step.text}</p>
-                        <button type="button" onclick="prepareAndSubmitForm()" class="btn-brand rounded-lg py-3 px-8 text-lg">Enviar Respostas</button>
+                        <button id="submit-btn" type="button" onclick="submitDataToGoogleScript()" class="btn-brand rounded-lg py-3 px-8 text-lg">Enviar Respostas</button>
                     </div>`;
             } else if (step.type === 'outro_servico') {
                  content.innerHTML = `
@@ -342,12 +322,12 @@
             } else {
                 let inputHtml = '';
                  if (step.type === 'textarea') {
-                    inputHtml = `<textarea id="${step.id}" name="${step.name}" rows="5" class="textarea-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}"></textarea>`;
+                    inputHtml = `<textarea id="${step.id}" rows="5" class="textarea-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}"></textarea>`;
                 } else if (step.type === 'select') {
                     const optionsHtml = step.options.map(o => `<option value="${o}">${o}</option>`).join('');
-                    inputHtml = `<select id="${step.id}" name="${step.name}" class="select-field w-full p-4 rounded-lg mt-2">${optionsHtml}</select>`;
+                    inputHtml = `<select id="${step.id}" class="select-field w-full p-4 rounded-lg mt-2">${optionsHtml}</select>`;
                 } else {
-                    inputHtml = `<input type="${step.type}" id="${step.id}" name="${step.name}" class="input-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}">`;
+                    inputHtml = `<input type="${step.type}" id="${step.id}" class="input-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}">`;
                 }
                 
                 content.innerHTML = `
@@ -415,7 +395,6 @@
         }
 
         function addAnotherService() {
-            // FIX: Clear the current service data before starting a new one
             currentServiceData = {};
             currentStep = formSteps.findIndex(s => s.id === 'servico_nome');
             renderStep();
@@ -423,7 +402,6 @@
 
         function finishForm() {
              if (Object.keys(currentServiceData).length > 0) {
-                // This case happens if the user clicks "Finalizar" without adding another service
                 submissionData.services.push({ ...currentServiceData });
                 currentServiceData = {};
             }
@@ -431,56 +409,43 @@
             renderStep();
         }
         
-        async function prepareAndSubmitForm() {
-            const dataToSubmit = new FormData(formElement);
+        async function submitDataToGoogleScript() {
+            // !!! URL DO SCRIPT ATUALIZADA !!!
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7nM8ybKURrgRPa9Ko1UzAzw0D-HySwBHcwR8iVrYy9nRyhh2UI146njeCX41o7d41sg/exec';
+            // !!! --------------------------- !!!
             
-            let formattedContent = `Respostas do Formulário de Integração - Up360\n`;
-            formattedContent += `==================================================\n\n`;
-            formattedContent += `Descrição Geral da Up360: ${submissionData.descricao_geral_up360 || 'N/A'}\n\n`;
-
-            submissionData.services.forEach((service, index) => {
-                formattedContent += `---------- SERVIÇO ${index + 1} ----------\n`;
-                formattedContent += `Nome: ${service.servico_nome || 'N/A'}\n`;
-                formattedContent += `Descrição: ${service.servico_descricao || 'N/A'}\n`;
-                formattedContent += `Benefícios: ${service.servico_beneficios || 'N/A'}\n`;
-                formattedContent += `Público-Alvo: ${service.servico_publico_alvo || 'N/A'}\n`;
-                formattedContent += `Pré-requisitos: ${service.servico_prerequisitos || 'N/A'}\n`;
-                formattedContent += `Maturidade Ideal: ${service.classificacao_maturidade || 'N/A'}\n`;
-                formattedContent += `Impacto da Ausência: ${service.classificacao_impacto || 'N/A'}\n`;
-                formattedContent += `Gatilhos/Sintomas: ${service.classificacao_gatilhos || 'N/A'}\n`;
-                formattedContent += `Modelo de Preço: ${service.preco_modelo || 'N/A'}\n`;
-                formattedContent += `Faixa de Preço: ${service.preco_faixa || 'N/A'}\n`;
-                formattedContent += `Condições Especiais: ${service.preco_condicoes || 'N/A'}\n\n`;
-            });
-            
-            formattedContent += `---------- INTEGRAÇÃO E SINERGIA ----------\n`;
-            formattedContent += `Complemento à Live: ${submissionData.sinergia_complemento || 'N/A'}\n`;
-            formattedContent += `Oportunidades de Cross-sell: ${submissionData.sinergia_cross_sell || 'N/A'}\n\n`;
-            formattedContent += `---------- MATERIAIS DE APOIO ----------\n`;
-            formattedContent += `Materiais existentes: ${submissionData.apoio_materiais || 'N/A'}\n`;
-            
-            dataToSubmit.append('submission_data', formattedContent);
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
 
             try {
-                const response = await fetch(formElement.getAttribute('action'), {
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    headers: { "Accept": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams(dataToSubmit).toString(),
+                    mode: 'cors', 
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8', // Alterado para text/plain
+                    },
+                    body: JSON.stringify(submissionData) // Envia o objeto como string
                 });
 
-                if (response.ok) {
-                     formContainer.innerHTML = `
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    formContainer.innerHTML = `
                         <div class="text-center fade-in">
                             <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">Enviado com Sucesso!</h2>
-                            <p class="text-lg text-gray-300">Obrigado, Tom. Recebemos suas respostas e entraremos em contato em breve.</p>
+                            <p class="text-lg text-gray-300">Obrigado, Tom. Recebemos suas respostas. Um documento foi criado em nossa conta com os dados.</p>
                         </div>
                     `;
                 } else {
-                    throw new Error('Network response was not ok.');
+                    throw new Error(result.message || 'Erro desconhecido ao enviar os dados.');
                 }
+
             } catch (error) {
-                console.error('Submission error:', error);
-                alert('Houve um erro ao enviar o formulário. Por favor, tente novamente.');
+                console.error('Erro ao enviar para o Google Script:', error);
+                alert('Houve um erro ao enviar suas respostas. Por favor, verifique sua conexão ou contate o administrador.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Enviar Respostas';
             }
         }
 
