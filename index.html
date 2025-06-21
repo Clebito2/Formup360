@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Integração | Live + Up360</title>
+    <title>Formulário de Integração | Live + Up380</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -164,13 +164,13 @@
             {
                 type: 'intro',
                 title: 'Bem-vindo, Tom!',
-                text: `Este formulário foi desenhado para nos ajudar a entender profundamente os serviços da Up360. O objetivo é coletar as informações necessárias para que nosso sistema possa identificar oportunidades para os clientes da Live e integrar as soluções de vocês em nossas propostas de forma inteligente. <br><br>Vamos começar?`
+                text: `Este formulário foi desenhado para nos ajudar a entender profundamente os serviços da Up380. O objetivo é coletar as informações necessárias para que nosso sistema possa identificar oportunidades para os clientes da Live e integrar as soluções de vocês em nossas propostas de forma inteligente. <br><br>Vamos começar?`
             },
             // SEÇÃO 1
             {
-                id: 'descricao_geral_up360',
-                question: "Para começar, poderia nos dar uma descrição geral da Up360, sua missão e o leque de serviços que vocês oferecem?",
-                placeholder: "Ex: A Up360 é especializada em... e oferecemos serviços como BPO Financeiro, Consultoria de RH...",
+                id: 'descricao_geral_up380',
+                question: "Para começar, poderia nos dar uma descrição geral da Up380, sua missão e o leque de serviços que vocês oferecem?",
+                placeholder: "Ex: A Up380 é especializada em... e oferecemos serviços como BPO Financeiro, Consultoria de RH...",
                 type: 'textarea'
             },
             // SEÇÃO 2 - Início do loop de serviços
@@ -248,11 +248,11 @@
             {
                 type: 'intro',
                 title: 'Integração e Sinergia',
-                text: `Agora, vamos pensar em como os serviços da Up360 e da Live se complementam.`
+                text: `Agora, vamos pensar em como os serviços da Up380 e da Live se complementam.`
             },
             {
                 id: 'sinergia_complemento',
-                question: "Como você vê os serviços da Up360 atuando como 'ferramentas' ou 'continuação' de nossas consultorias?",
+                question: "Como você vê os serviços da Up380 atuando como 'ferramentas' ou 'continuação' de nossas consultorias?",
                 type: 'textarea',
                 placeholder: "Em que momento do nosso processo (diagnóstico, planejamento, execução) faria mais sentido oferecer cada serviço?"
             },
@@ -260,12 +260,12 @@
                 id: 'sinergia_cross_sell',
                 question: "Poderia nos dar exemplos de cenários para venda cruzada?",
                 type: 'textarea',
-                placeholder: "Ex: 'Quando um cliente da Live atinge o marco X, o serviço Y da Up360 se torna o próximo passo lógico...'"
+                placeholder: "Ex: 'Quando um cliente da Live atinge o marco X, o serviço Y da Up380 se torna o próximo passo lógico...'"
             },
             // SEÇÃO 6
             {
                 id: 'apoio_materiais',
-                question: "A Up360 possui materiais de apoio sobre os serviços que podemos usar?",
+                question: "A Up380 possui materiais de apoio sobre os serviços que podemos usar?",
                 type: 'textarea',
                 placeholder: "Ex: Apresentações comerciais, PDFs explicativos, e-books, cases de sucesso, etc."
             },
@@ -410,23 +410,26 @@
         }
         
         async function submitDataToGoogleScript() {
-            // !!! URL DO SCRIPT ATUALIZADA !!!
             const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7nM8ybKURrgRPa9Ko1UzAzw0D-HySwBHcwR8iVrYy9nRyhh2UI146njeCX41o7d41sg/exec';
-            // !!! --------------------------- !!!
             
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
-
+            
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'cors', 
+                    body: JSON.stringify(submissionData),
+                    // O cabeçalho é importante, mas o 'mode: no-cors' era o problema.
+                    // Removendo-o e tratando a resposta corretamente é a solução.
                     headers: {
-                        'Content-Type': 'text/plain;charset=utf-8', // Alterado para text/plain
+                        'Content-Type': 'text/plain;charset=utf-8',
                     },
-                    body: JSON.stringify(submissionData) // Envia o objeto como string
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Erro de rede: ${response.statusText}`);
+                }
 
                 const result = await response.json();
 
@@ -438,12 +441,12 @@
                         </div>
                     `;
                 } else {
-                    throw new Error(result.message || 'Erro desconhecido ao enviar os dados.');
+                    throw new Error(result.message || 'Erro desconhecido retornado pelo script.');
                 }
 
             } catch (error) {
                 console.error('Erro ao enviar para o Google Script:', error);
-                alert('Houve um erro ao enviar suas respostas. Por favor, verifique sua conexão ou contate o administrador.');
+                alert(`Houve um erro ao enviar suas respostas: ${error.message}`);
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Enviar Respostas';
             }
