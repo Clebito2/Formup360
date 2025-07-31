@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Integração | Live + Up380</title>
+    <title>Ecossistema G380 | A Evolução da Gestão Empresarial</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,11 +13,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
     <style>
         :root {
             --azul-petroleo: #06192a;
             --verde-vibrante: #00e800;
             --cinza-claro: #f4f4f4;
+            --cinza-azulado: #1e293b;
+            --texto-claro: #e2e8f0;
             --branco: #ffffff;
             --font-primaria: 'Poppins', sans-serif;
             --font-secundaria: 'Merriweather', serif;
@@ -26,438 +31,313 @@
         body {
             font-family: var(--font-primaria);
             background-color: var(--azul-petroleo);
-            color: var(--cinza-claro);
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-        
-        /* Animated Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            z-index: -1;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(0, 232, 0, 0.1) 0%, transparent 30%),
-                radial-gradient(circle at 75% 75%, rgba(0, 232, 0, 0.08) 0%, transparent 25%),
-                radial-gradient(circle at 50% 90%, rgba(255, 255, 255, 0.05) 0%, transparent 20%);
-            background-color: var(--azul-petroleo);
-            animation: move-background 40s linear infinite;
+            color: var(--texto-claro);
         }
 
-        @keyframes move-background {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-50%, -50%); }
+        .font-merriweather { font-family: var(--font-secundaria); }
+        .text-verde-vibrante { color: var(--verde-vibrante); }
+        .bg-verde-vibrante { background-color: var(--verde-vibrante); }
+        .border-verde-vibrante { border-color: var(--verde-vibrante); }
+        .bg-cinza-azulado { background-color: var(--cinza-azulado); }
+
+        .hero-section {
+            background: linear-gradient(rgba(6, 25, 42, 0.85), rgba(6, 25, 42, 1)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2940&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
         }
 
-
-        h1, h2, h3 {
-            font-family: var(--font-primaria);
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-
-        p, li, span, label {
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        
-        .font-brand-secondary {
-            font-family: var(--font-secundaria);
-        }
-
-        .text-brand-green {
-            color: var(--verde-vibrante);
-            text-shadow: 1px 1px 4px rgba(0, 232, 0, 0.5);
-        }
-
-        .btn-brand {
+        .btn-principal {
             background-color: var(--verde-vibrante);
             color: var(--azul-petroleo);
-            font-weight: 600;
+            font-weight: 700;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-shadow: none;
         }
 
-        .btn-brand:hover {
+        .btn-principal:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 232, 0, 0.2);
         }
-        
-        .btn-brand:disabled {
-            background-color: #555;
-            cursor: not-allowed;
-        }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--verde-vibrante);
-            border: 2px solid var(--verde-vibrante);
-            font-weight: 600;
+        .tab-btn {
             transition: all 0.3s ease;
-            text-shadow: none;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
         }
 
-        .btn-secondary:hover {
-            background-color: var(--verde-vibrante);
-            color: var(--azul-petroleo);
+        .tab-btn.active {
+            color: var(--verde-vibrante);
+            border-bottom-color: var(--verde-vibrante);
         }
 
-        .input-field, .textarea-field, .select-field {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--branco);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-        
-        .select-field option {
-             background-color: var(--azul-petroleo);
-             color: var(--branco);
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .input-field:focus, .textarea-field:focus, .select-field:focus {
-            outline: none;
-            border-color: var(--verde-vibrante);
-            box-shadow: 0 0 15px rgba(0, 232, 0, 0.3);
-        }
-        
-        .progress-bar-bg {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .progress-bar-fill {
-            background-color: var(--verde-vibrante);
-            transition: width 0.5s ease-out;
+        .tab-panel.active {
+            display: block;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body class="antialiased">
 
-    <header class="absolute top-0 left-0 w-full p-6">
-        <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png" alt="Logo Live" class="h-12">
+    <!-- Cabeçalho -->
+    <header class="py-4 px-8 sticky top-0 z-50 bg-azul-petroleo/80 backdrop-blur-md border-b border-white/10">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <img src="https://raw.githubusercontent.com/Clebito2/layout/main/G380.png" alt="Logo G380" class="h-12">
+            </div>
+        </div>
     </header>
 
-    <main id="form-container" class="w-full max-w-3xl mx-auto bg-black bg-opacity-20 backdrop-blur-lg p-8 md:p-12 rounded-2xl shadow-2xl border-4 border-white/10">
-        <!-- Steps will be injected here by JavaScript -->
+    <main>
+        <!-- Seção Hero -->
+        <section class="hero-section py-20 md:py-32 text-center">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight text-white">
+                    O Ecossistema que Estrutura o Futuro do seu Negócio
+                </h1>
+                <p class="mt-6 max-w-4xl mx-auto text-xl md:text-2xl text-texto-claro font-merriweather">
+                    "Unimos a <span class="text-verde-vibrante">força da especialização</span> com a <span class="text-verde-vibrante">inteligência de grupo</span> para entregar um ecossistema transformador em tecnologia, pessoas e processos."
+                </p>
+                <div class="mt-10">
+                    <a href="#solucoes" class="btn-principal py-4 px-10 rounded-lg text-lg">Conheça Nossas Soluções</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Proposta de Valor -->
+        <section class="py-16 md:py-24 bg-azul-petroleo">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Desempenho e Cultura de Excelência</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-texto-claro">Resolvemos os principais desafios que impedem o crescimento, unindo o melhor de dois mundos: a agilidade e o conhecimento profundo de uma empresa especializada com a solidez, governança e visão estratégica de um grande grupo.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-cinza-azulado p-8 rounded-xl border border-white/10">
+                        <i class="fas fa-compass-drafting text-4xl text-verde-vibrante mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Estratégia sem Execução</h3>
+                        <p class="text-texto-claro/80">Planos que ficam no papel por falta de dados confiáveis e processos claros.</p>
+                    </div>
+                    <div class="bg-cinza-azulado p-8 rounded-xl border border-white/10">
+                        <i class="fas fa-sack-xmark text-4xl text-verde-vibrante mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Invisibilidade Financeira</h3>
+                        <p class="text-texto-claro/80">Decisões tomadas "no escuro", sem um DRE ou Fluxo de Caixa precisos.</p>
+                    </div>
+                    <div class="bg-cinza-azulado p-8 rounded-xl border border-white/10">
+                        <i class="fas fa-users-gear text-4xl text-verde-vibrante mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Gestão de Pessoas Reativa</h3>
+                        <p class="text-texto-claro/80">Processos de RH e DP manuais que consomem tempo e não agregam valor estratégico.</p>
+                    </div>
+                    <div class="bg-cinza-azulado p-8 rounded-xl border border-white/10">
+                        <i class="fas fa-gears text-4xl text-verde-vibrante mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Tecnologia Subutilizada</h3>
+                        <p class="text-texto-claro/80">Sistemas de gestão (ERPs) que não conversam entre si e geram retrabalho.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Soluções com Abas -->
+        <section id="solucoes" class="py-16 md:py-24 bg-cinza-azulado/30">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Nossas Soluções Integradas</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-texto-claro">Explore como podemos transformar cada aspecto da sua empresa, do detalhe à visão macro.</p>
+                </div>
+                
+                <div id="main-tabs-container">
+                    <div class="flex justify-center border-b border-white/20 mb-8 overflow-x-auto">
+                        <button class="tab-btn active text-lg font-semibold py-3 px-6" data-target="panel-marcas">Por Marca (Catálogo)</button>
+                        <button class="tab-btn text-lg font-semibold py-3 px-6" data-target="panel-bpo">Serviços BPO</button>
+                        <button class="tab-btn text-lg font-semibold py-3 px-6" data-target="panel-macroareas">Por Macroárea</button>
+                    </div>
+
+                    <div>
+                        <!-- Aba Catálogo por Marca -->
+                        <div id="panel-marcas" class="tab-panel active">
+                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                                <!-- Coluna LiVe -->
+                                <div class="bg-cinza-azulado p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold text-center mb-4 text-verde-vibrante">LiVe</h4>
+                                    <div class="space-y-4">
+                                        <div><h5 class="font-bold">Consultoria Estratégica</h5><p class="text-sm text-texto-claro/80">Planejamento, reestruturação de negócios e governança.</p></div>
+                                        <div><h5 class="font-bold">Liderança Antifrágil</h5><p class="text-sm text-texto-claro/80">Formação imersiva para líderes transformarem crises em oportunidades.</p></div>
+                                        <div><h5 class="font-bold">Comunicação e Oratória</h5><p class="text-sm text-texto-claro/80">Cursos como "Master" e "Efeito Reputação" para construir autoridade.</p></div>
+                                    </div>
+                                </div>
+                                <!-- Coluna UP380 -->
+                                <div class="bg-cinza-azulado p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold text-center mb-4 text-verde-vibrante">UP380</h4>
+                                    <div class="space-y-4">
+                                        <div><h5 class="font-bold">Solução CIM 380</h5><p class="text-sm text-texto-claro/80">Conciliação financeira integrada a mentoria para governança de dados.</p></div>
+                                        <div><h5 class="font-bold">BPO Financeiro</h5><p class="text-sm text-texto-claro/80">Terceirização de rotinas de contas a pagar/receber e conciliação.</p></div>
+                                    </div>
+                                </div>
+                                 <!-- Coluna TAG -->
+                                <div class="bg-cinza-azulado p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold text-center mb-4 text-verde-vibrante">TAG</h4>
+                                    <div class="space-y-4">
+                                         <div><h5 class="font-bold">Controladoria Estratégica</h5><p class="text-sm text-texto-claro/80">Análise de dados e suporte consultivo para a alta gestão.</p></div>
+                                         <div><h5 class="font-bold">Relatórios Gerenciais</h5><p class="text-sm text-texto-claro/80">Elaboração de DRE, DFC e análise de custos.</p></div>
+                                    </div>
+                                </div>
+                                <!-- Coluna Inova -->
+                                <div class="bg-cinza-azulado p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold text-center mb-4 text-verde-vibrante">Inova</h4>
+                                    <div class="space-y-4">
+                                        <div><h5 class="font-bold">BPO de RH & DP</h5><p class="text-sm text-texto-claro/80">Gestão de recrutamento, seleção, onboarding, folha e clima organizacional.</p></div>
+                                         <div><h5 class="font-bold">Clima e Engajamento</h5><p class="text-sm text-texto-claro/80">Aplicação de pesquisas e planos de ação para melhorar o ambiente de trabalho.</p></div>
+                                    </div>
+                                </div>
+                                <!-- Coluna U-Gestor e Tecnologia -->
+                                <div class="bg-cinza-azulado p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold text-center mb-4 text-verde-vibrante">Tecnologia</h4>
+                                    <div class="space-y-4">
+                                        <div><h5 class="font-bold">Sistema de Gestão (ERP U-Gestor)</h5><p class="text-sm text-texto-claro/80">Plataforma completa com módulos de Compras, Faturamento, Estoque e Financeiro.</p></div>
+                                        <div><h5 class="font-bold">Auditoria e Segurança</h5><p class="text-sm text-texto-claro/80">Serviços para garantir a integridade e a segurança dos seus dados.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Aba Serviços BPO -->
+                        <div id="panel-bpo" class="tab-panel">
+                            <div id="bpo-tabs-container">
+                                <div class="flex justify-center border-b border-white/10 mb-8 overflow-x-auto">
+                                    <button class="tab-btn active text-base font-semibold py-2 px-5" data-target="bpo-rh">RH</button>
+                                    <button class="tab-btn text-base font-semibold py-2 px-5" data-target="bpo-dp">Departamento Pessoal</button>
+                                    <button class="tab-btn text-base font-semibold py-2 px-5" data-target="bpo-financeiro">Financeiro</button>
+                                </div>
+                                <div>
+                                    <div id="bpo-rh" class="tab-panel active">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Recrutamento e Seleção</h5><p class="text-sm text-texto-claro/80">Elaboração de vagas, triagem, entrevistas por competências e aplicação de testes.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Integração e Onboarding</h5><p class="text-sm text-texto-claro/80">Criação de plano de integração, manual do colaborador e acompanhamento inicial.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Clima Organizacional</h5><p class="text-sm text-texto-claro/80">Aplicação de pesquisas de clima com análise de resultados e planos de ação.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Gestão de Treinamentos</h5><p class="text-sm text-texto-claro/80">Levantamento de necessidades, planejamento e avaliação de eficácia das capacitações.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Indicadores de RH</h5><p class="text-sm text-texto-claro/80">Acompanhamento de Turnover, Absenteísmo, tempo e custo por contratação.</p></div>
+                                        </div>
+                                    </div>
+                                    <div id="bpo-dp" class="tab-panel">
+                                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Admissões</h5><p class="text-sm text-texto-claro/80">Coleta de documentos, registro no eSocial e elaboração de contrato de trabalho.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Folha de Pagamento</h5><p class="text-sm text-texto-claro/80">Cálculo de salários, horas extras, adicionais, descontos e emissão de holerites.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Encargos e Obrigações</h5><p class="text-sm text-texto-claro/80">Emissão de guias de FGTS, INSS, IRRF e gestão de obrigações acessórias.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Férias e Rescisões</h5><p class="text-sm text-texto-claro/80">Controle de vencimentos, cálculo de recibos e emissão de TRCT.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Controle de Ponto</h5><p class="text-sm text-texto-claro/80">Apuração de ponto, relatórios de banco de horas e horas extras.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Afastamentos e Benefícios</h5><p class="text-sm text-texto-claro/80">Controle de afastamentos (INSS, maternidade) e gestão de benefícios (VT, VA, etc.).</p></div>
+                                        </div>
+                                    </div>
+                                    <div id="bpo-financeiro" class="tab-panel">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Contas a Pagar e Receber</h5><p class="text-sm text-texto-claro/80">Provisionamento de obrigações, programação e conciliação de pagamentos.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Conciliação Bancária</h5><p class="text-sm text-texto-claro/80">Conciliação diária ou semanal dos extratos bancários e identificação de inconsistências.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Fluxo de Caixa</h5><p class="text-sm text-texto-claro/80">Atualização e acompanhamento diário/semanal, com relatórios de real vs. previsto.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Gestão de Documentos</h5><p class="text-sm text-texto-claro/80">Organização de notas fiscais, comprovantes e controle de vencimentos.</p></div>
+                                            <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Cobrança</h5><p class="text-sm text-texto-claro/80">Acompanhamento de inadimplência, envio de lembretes e negociação de acordos.</p></div>
+                                             <div class="bg-cinza-azulado/60 p-6 rounded-xl"><h5 class="font-bold text-verde-vibrante">Relatórios Financeiros</h5><p class="text-sm text-texto-claro/80">Elaboração de DRE Gerencial, análise de custos e relatórios por centro de custo.</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aba por Macroárea -->
+                        <div id="panel-macroareas" class="tab-panel">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                                <div class="bg-cinza-azulado p-8 rounded-xl text-center">
+                                    <i class="fas fa-graduation-cap text-5xl text-verde-vibrante mx-auto mb-4"></i>
+                                    <h3 class="text-2xl font-bold mb-2">Educação Corporativa e Estratégica</h3>
+                                    <p class="text-texto-claro/80">Consolidamos toda a educação do grupo para desenvolver líderes e equipes com formações, cursos e uma comunidade de alta performance.</p>
+                                </div>
+                                <div class="bg-cinza-azulado p-8 rounded-xl text-center">
+                                     <i class="fas fa-clipboard-check text-5xl text-verde-vibrante mx-auto mb-4"></i>
+                                    <h3 class="text-2xl font-bold mb-2">Consultoria e BPO</h3>
+                                    <p class="text-texto-claro/80">Gerenciamos o planejamento estratégico, BPO financeiro, controladoria e a terceirização de RH e DP para otimizar sua operação.</p>
+                                </div>
+                                <div class="bg-cinza-azulado p-8 rounded-xl text-center">
+                                    <i class="fas fa-laptop-code text-5xl text-verde-vibrante mx-auto mb-4"></i>
+                                    <h3 class="text-2xl font-bold mb-2">Tecnologia e Sistemas</h3>
+                                    <p class="text-texto-claro/80">Integramos todas as soluções de tecnologia, incluindo ERP, auditoria de sistemas e desenvolvimento, para criar uma base de dados unificada e robusta.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Confiança -->
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">A Confiança de Quem <span class="text-verde-vibrante">Cresce Conosco</span></h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Depoimento 1 -->
+                    <div class="bg-cinza-azulado p-8 rounded-xl border-l-4 border-verde-vibrante">
+                        <p class="font-merriweather italic text-texto-claro mb-6">"A Formação em Liderança Antifrágil nos deu as ferramentas para não apenas sobreviver à crise, mas para sair dela mais fortes. Nossos gestores hoje tomam decisões mais rápidas e eficazes."</p>
+                        <div>
+                            <p class="font-bold text-white">- CEO de Empresa Parceira</p>
+                            <p class="text-sm text-verde-vibrante">via LiVe</p>
+                        </div>
+                    </div>
+                    <!-- Depoimento 2 -->
+                    <div class="bg-cinza-azulado p-8 rounded-xl border-l-4 border-verde-vibrante">
+                        <p class="font-merriweather italic text-texto-claro mb-6">"Saímos de um cenário de desorganização para uma operação com dados 100% confiáveis. A gestão diária das pendências e os relatórios estratégicos nos deram uma visibilidade do negócio que nunca tivemos."</p>
+                        <div>
+                            <p class="font-bold text-white">- Diretor Financeiro de Cliente</p>
+                            <p class="text-sm text-verde-vibrante">via UP380</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
-    
-    <footer class="absolute bottom-4 text-center w-full text-gray-500 text-sm">
-        <p>desenvolvido por Cléber Donato.</p>
+
+    <!-- Rodapé -->
+    <footer class="py-8 bg-black">
+        <div class="container mx-auto px-8 text-center text-gray-400">
+            <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-34.png" alt="Logo Live" class="h-16 mx-auto mb-4">
+            <p class="font-semibold text-white">Ecossistema G380</p>
+        </div>
     </footer>
 
     <script>
-        const formSteps = [
-             // INTRODUÇÃO
-            {
-                type: 'intro',
-                title: 'Bem-vindo, Tom!',
-                text: `Este formulário foi desenhado para nos ajudar a entender profundamente os serviços da Up380. O objetivo é coletar as informações necessárias para que nosso sistema possa identificar oportunidades para os clientes da Live e integrar as soluções de vocês em nossas propostas de forma inteligente. <br><br>Vamos começar?`
-            },
-            // SEÇÃO 1
-            {
-                id: 'descricao_geral_up380',
-                question: "Para começar, poderia nos dar uma descrição geral da Up380, sua missão e o leque de serviços que vocês oferecem?",
-                placeholder: "Ex: A Up380 é especializada em... e oferecemos serviços como BPO Financeiro, Consultoria de RH...",
-                type: 'textarea'
-            },
-            // SEÇÃO 2 - Início do loop de serviços
-            {
-                id: 'servico_nome',
-                question: "Vamos detalhar cada serviço. Qual o nome do primeiro serviço ou produto que vamos analisar?",
-                placeholder: "Ex: BPO Financeiro Essencial, Gestão de Folha de Pagamento, etc.",
-                type: 'text'
-            },
-            {
-                id: 'servico_descricao',
-                question: "O que exatamente este serviço inclui? Quais são as principais atividades e entregáveis para o cliente?",
-                type: 'textarea',
-                placeholder: "Descreva o escopo, as atividades, fases e o que o cliente recebe no final."
-            },
-            {
-                id: 'servico_beneficios',
-                question: "Quais são os principais benefícios e transformações que um cliente obtém com este serviço?",
-                type: 'textarea',
-                placeholder: "Ex: Redução de X% em custos, aumento da eficiência, conformidade legal, etc."
-            },
-            {
-                id: 'servico_publico_alvo',
-                question: "Para qual perfil de cliente este serviço é mais recomendado?",
-                type: 'textarea',
-                placeholder: "Considere nicho de mercado, porte da empresa (PME, Média, Grande), faturamento ideal, etc."
-            },
-            {
-                id: 'servico_prerequisitos',
-                question: "O cliente precisa ter algum pré-requisito para que o serviço seja eficaz?",
-                type: 'textarea',
-                placeholder: "Ex: Sistema contábil específico, processos minimamente definidos, equipe dedicada, etc."
-            },
-            // SEÇÃO 3
-            {
-                id: 'classificacao_maturidade',
-                question: "Em nossa escala de 1 a 5, qual o nível de maturidade ideal do cliente para se beneficiar mais deste serviço?",
-                helpText: "1: Inexistente/Informal, 2: Ações sem padrão, 3: Estruturado mas inconsistente, 4: Rotina clara, 5: Consolidado e autônomo.",
-                type: 'select',
-                options: [1, 2, 3, 4, 5]
-            },
-            {
-                id: 'classificacao_impacto',
-                question: "E na nossa escala de 0 a 10, qual o impacto negativo para um cliente que não possui este serviço?",
-                helpText: "0-3: Baixo, 4-6: Médio, 7-8: Alto, 9-10: Crítico (trava o crescimento ou gera prejuízo).",
-                type: 'select',
-                options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            },
-            {
-                id: 'classificacao_gatilhos',
-                question: "Quais são os principais sintomas ou 'dores' de um cliente que nos levariam a sugerir este serviço?",
-                type: 'textarea',
-                placeholder: "Ex: 'Cliente reclama da burocracia do RH', 'equipe financeira sobrecarregada', 'não tem dados confiáveis', etc."
-            },
-            // SEÇÃO 4
-            {
-                id: 'preco_modelo',
-                question: "Qual o modelo de precificação para este serviço?",
-                type: 'text',
-                placeholder: "Ex: Mensalidade fixa, pacote de horas, % sobre faturamento, etc."
-            },
-            {
-                id: 'preco_faixa',
-                question: "Quais são os valores ou as faixas de preço típicas?",
-                type: 'text',
-                placeholder: "Ex: A partir de R$ X, Planos Bronze/Prata/Ouro, etc."
-            },
-            {
-                id: 'preco_condicoes',
-                question: "Existem condições especiais ou observações sobre a precificação?",
-                type: 'textarea',
-                placeholder: "Ex: Taxa de setup, reajustes, descontos para clientes Live, etc."
-            },
-             // SEÇÃO 5
-            {
-                type: 'intro',
-                title: 'Integração e Sinergia',
-                text: `Agora, vamos pensar em como os serviços da Up380 e da Live se complementam.`
-            },
-            {
-                id: 'sinergia_complemento',
-                question: "Como você vê os serviços da Up380 atuando como 'ferramentas' ou 'continuação' de nossas consultorias?",
-                type: 'textarea',
-                placeholder: "Em que momento do nosso processo (diagnóstico, planejamento, execução) faria mais sentido oferecer cada serviço?"
-            },
-            {
-                id: 'sinergia_cross_sell',
-                question: "Poderia nos dar exemplos de cenários para venda cruzada?",
-                type: 'textarea',
-                placeholder: "Ex: 'Quando um cliente da Live atinge o marco X, o serviço Y da Up380 se torna o próximo passo lógico...'"
-            },
-            // SEÇÃO 6
-            {
-                id: 'apoio_materiais',
-                question: "A Up380 possui materiais de apoio sobre os serviços que podemos usar?",
-                type: 'textarea',
-                placeholder: "Ex: Apresentações comerciais, PDFs explicativos, e-books, cases de sucesso, etc."
-            },
-             // FIM
-            {
-                type: 'outro_servico',
-                title: 'Serviço Concluído',
-                text: `Ótimo! Detalhamos bem este serviço. Agora, o que você prefere?`
-            },
-            {
-                type: 'final',
-                title: 'Obrigado!',
-                text: 'Excelente! Coletamos todas as informações. Muito obrigado pela sua colaboração, Tom. Este material será fundamental para nossa parceria. <br><br>Clique no botão abaixo para nos enviar as respostas.'
-            }
-        ];
+        function setupTabs(containerSelector) {
+            const container = document.querySelector(containerSelector);
+            if (!container) return;
 
-        let currentStep = 0;
-        const formContainer = document.getElementById('form-container');
-        
-        let submissionData = { services: [] };
-        let currentServiceData = {};
+            const tabButtons = container.querySelectorAll(':scope > .flex > .tab-btn');
+            const tabPanelsContainer = container.querySelector(':scope > div:not(.flex)');
+            const tabPanels = tabPanelsContainer.querySelectorAll(':scope > .tab-panel');
 
-        function renderStep() {
-            const step = formSteps[currentStep];
-            formContainer.innerHTML = ''; 
-            
-            let content = document.createElement('div');
-            content.className = 'fade-in';
+            tabButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
 
-            if (step.type === 'intro') {
-                content.innerHTML = `
-                    <div class="text-center">
-                        <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">${step.title}</h2>
-                        <p class="text-lg text-gray-300 mb-8">${step.text}</p>
-                        <button type="button" onclick="nextStep()" class="btn-brand rounded-lg py-3 px-8 text-lg">Começar</button>
-                    </div>`;
-            } else if (step.type === 'final') {
-                content.innerHTML = `
-                     <div class="text-center">
-                        <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">${step.title}</h2>
-                        <p class="text-lg text-gray-300 mb-8">${step.text}</p>
-                        <button id="submit-btn" type="button" onclick="submitDataToGoogleScript()" class="btn-brand rounded-lg py-3 px-8 text-lg">Enviar Respostas</button>
-                    </div>`;
-            } else if (step.type === 'outro_servico') {
-                 content.innerHTML = `
-                    <div class="text-center">
-                        <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">${step.title}</h2>
-                        <p class="text-lg text-gray-300 mb-8">${step.text}</p>
-                        <div class="flex flex-col md:flex-row gap-4 justify-center">
-                            <button type="button" onclick="addAnotherService()" class="btn-brand rounded-lg py-3 px-8 text-lg">Analisar Outro Serviço</button>
-                            <button type="button" onclick="finishForm()" class="btn-secondary rounded-lg py-3 px-8 text-lg">Finalizar e Enviar</button>
-                        </div>
-                    </div>`;
-            } else {
-                let inputHtml = '';
-                 if (step.type === 'textarea') {
-                    inputHtml = `<textarea id="${step.id}" rows="5" class="textarea-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}"></textarea>`;
-                } else if (step.type === 'select') {
-                    const optionsHtml = step.options.map(o => `<option value="${o}">${o}</option>`).join('');
-                    inputHtml = `<select id="${step.id}" class="select-field w-full p-4 rounded-lg mt-2">${optionsHtml}</select>`;
-                } else {
-                    inputHtml = `<input type="${step.type}" id="${step.id}" class="input-field w-full p-4 rounded-lg mt-2" placeholder="${step.placeholder || ''}">`;
-                }
-                
-                content.innerHTML = `
-                    <div>
-                        <label for="${step.id}" class="text-2xl font-semibold">${step.question}</label>
-                        ${step.helpText ? `<p class="text-gray-400 mt-1">${step.helpText}</p>` : ''}
-                        ${inputHtml}
-                        <div class="flex justify-between mt-8">
-                            <button type="button" onclick="prevStep()" class="btn-secondary rounded-lg py-2 px-6 ${currentStep <= 1 ? 'invisible' : ''}">Anterior</button>
-                            <button type="button" onclick="nextStep()" class="btn-brand rounded-lg py-2 px-6">Próximo</button>
-                        </div>
-                    </div>`;
-            }
-            formContainer.appendChild(content);
-
-            const inputElement = formContainer.querySelector(`#${step.id}`);
-            if (inputElement) {
-                if (step.id.startsWith('servico_')) {
-                    if (currentServiceData[step.id]) inputElement.value = currentServiceData[step.id];
-                } else {
-                    if (submissionData[step.id]) inputElement.value = submissionData[step.id];
-                }
-            }
-        }
-
-        function saveData() {
-            const step = formSteps[currentStep];
-            const inputElement = formContainer.querySelector(`#${step.id}`);
-            if (inputElement) {
-                const value = inputElement.value;
-                if (step.id.startsWith('servico_')) {
-                    currentServiceData[step.id] = value;
-                } else {
-                    submissionData[step.id] = value;
-                }
-            }
-        }
-
-        function nextStep() {
-            const step = formSteps[currentStep];
-            if (step.question) {
-                const inputElement = formContainer.querySelector(`#${step.id}`);
-                if (inputElement && inputElement.value.trim() === '') {
-                    alert('Por favor, preencha o campo para continuar.');
-                    return;
-                }
-                saveData();
-            }
-
-            if (step.id === 'preco_condicoes') {
-                submissionData.services.push({ ...currentServiceData });
-            }
-
-            if (currentStep < formSteps.length - 1) {
-                currentStep++;
-                renderStep();
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 0) {
-                currentStep--;
-                renderStep();
-            }
-        }
-
-        function addAnotherService() {
-            currentServiceData = {};
-            currentStep = formSteps.findIndex(s => s.id === 'servico_nome');
-            renderStep();
-        }
-
-        function finishForm() {
-             if (Object.keys(currentServiceData).length > 0) {
-                submissionData.services.push({ ...currentServiceData });
-                currentServiceData = {};
-            }
-            currentStep = formSteps.findIndex(s => s.type === 'final');
-            renderStep();
-        }
-        
-        async function submitDataToGoogleScript() {
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7nM8ybKURrgRPa9Ko1UzAzw0D-HySwBHcwR8iVrYy9nRyhh2UI146njeCX41o7d41sg/exec';
-            
-            // --- CORREÇÃO FINAL ---
-            // Garante que o último serviço seja adicionado antes de enviar.
-            if (Object.keys(currentServiceData).length > 0) {
-                submissionData.services.push({ ...currentServiceData });
-                currentServiceData = {};
-            }
-
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando...';
-            
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(submissionData),
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8',
-                    },
+                    button.classList.add('active');
+                    const targetPanelId = button.dataset.target;
+                    const targetPanel = tabPanelsContainer.querySelector(`#${targetPanelId}`);
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                    }
                 });
-
-                if (!response.ok) {
-                    throw new Error(`Erro de rede: ${response.statusText}`);
-                }
-
-                const result = await response.json();
-
-                if (result.status === 'success') {
-                    formContainer.innerHTML = `
-                        <div class="text-center fade-in">
-                            <h2 class="text-3xl md:text-4xl mb-4 text-brand-green">Enviado com Sucesso!</h2>
-                            <p class="text-lg text-gray-300">Obrigado, Tom. Recebemos suas respostas. Um documento foi criado em nossa conta com os dados.</p>
-                        </div>
-                    `;
-                } else {
-                    throw new Error(result.message || 'Erro desconhecido retornado pelo script.');
-                }
-
-            } catch (error) {
-                console.error('Erro ao enviar para o Google Script:', error);
-                alert(`Houve um erro ao enviar suas respostas: ${error.message}`);
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Enviar Respostas';
-            }
+            });
         }
 
-        renderStep();
+        document.addEventListener('DOMContentLoaded', () => {
+            setupTabs('#main-tabs-container');
+            setupTabs('#bpo-tabs-container');
+        });
     </script>
+
 </body>
 </html>
